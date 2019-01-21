@@ -1,0 +1,67 @@
+import java.util.*;
+public class zoj1002{
+	    static int max=0;
+		static int counter=0;
+	public static void main(String args[]) {
+		Scanner sc=new Scanner(System.in);
+		while(true) {
+			int n=sc.nextInt();
+			if(n==0) break;
+			sc.nextLine();
+			if(n!=0) {
+				String[] zifu=new String[n];
+				for(int i=0;i<n;i++) {
+					zifu[i]=sc.nextLine();
+				}
+				int[][] shuzu=new int[n][n];
+				for(int i=0;i<n;i++) {
+					for(int j=0;j<n;j++) {
+						if(zifu[i].charAt(j)=='X') {
+							shuzu[i][j]=2;
+						}
+					}
+				}
+				DFS(shuzu,n);
+				System.out.println(max);
+				max=0;
+				counter=0;
+			}
+		}
+		sc.close();
+	}
+	
+	public static boolean Find(int x,int y,int[][]shuzu,int n) {
+		for(int i=y;i<n;i++) {
+			if(shuzu[i][y]==1) return false;
+			if(shuzu[i][y]==2) break;
+		}
+		for(int i=y;i>=0;i--) {
+			if(shuzu[i][y]==1) return false;
+			if(shuzu[i][y]==2) break;
+		}
+		for(int j=x;j>=0;j--) {
+			if(shuzu[x][j]==1) return false;
+			if(shuzu[x][j]==2) break;
+		}
+		for(int j=x;j<n;j++) {
+			if(shuzu[x][j]==1) return false;
+			if(shuzu[x][j]==2) break;
+		}
+		return true;
+	}
+	public static void DFS(int[][]shuzu,int n) {
+		if(max<counter) max=counter;
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<n;j++) {
+				if(shuzu[i][j]==0&&Find(i,j,shuzu,n)){
+					shuzu[i][j]=1;
+					counter++;
+					DFS(shuzu,n);
+					shuzu[i][j]=0;
+					counter--;
+				}
+			}
+		}
+	}
+	
+}

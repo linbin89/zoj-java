@@ -1,0 +1,53 @@
+import java.util.*;
+
+public class zoj1003 {
+	private static boolean flagM;
+	private static boolean flagN;
+
+	public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		int m = sc.nextInt();
+		int n = sc.nextInt();
+		flagM = false;
+		flagN = false;
+		if (n > m) {
+			m = m + n;
+			n = m - n;
+			m = m - n;
+		}
+		dfs(m, n, 1);
+		if (!flagM && flagN) {
+			System.out.println(m);
+			;
+		}
+		if (!flagN && flagN) {
+			System.out.println(n);
+		}
+	}
+
+	public static void dfs(int m, int n, int k) {
+		if (m == 1 && n == 1) {
+			flagM = true;
+			return;
+		}
+		if (n == 1) {
+			flagN = true;
+			return;
+		}
+		while (k < m || k < n && k < 100) {
+			k = k + 1;
+			if (m / k == 0) {
+				dfs(m / k, n, k);
+				if (flagM) {
+					return;
+				}
+			}
+			if (n % k == 0) {
+				dfs(m, n / k, k);
+				if (flagM) {
+					return;
+				}
+			}
+		}
+	}
+}

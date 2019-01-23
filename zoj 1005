@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class zoj1004 {
+	public static int ca, cb, a, b, n;
+
+	public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		while (sc.hasNext()) {
+			ca = sc.nextInt();
+			cb = sc.nextInt();
+			n = sc.nextInt();
+			a = 0;
+			b = cb;
+			System.out.println("fill b");
+			dfs();
+			System.out.println("success");
+		}
+	}
+
+	public static void dfs() {
+		if (b == n) {
+			return;
+		}
+		if (b > ca) {
+			System.out.println("pour b a");
+			b = b - (ca - a);
+			if (b == n)
+				return;
+			System.out.println("empty a");
+			a = 0;
+			dfs();
+		} else {
+			System.out.println("pour b a");
+			a = b;
+			System.out.println("fill b");
+			b = cb;
+			dfs();
+		}
+
+	}
+
+}
